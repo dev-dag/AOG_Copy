@@ -38,12 +38,25 @@ public class Archer : MonoBehaviour
     [SerializeField] private float currentHP;
     [SerializeField] private float maxHP;
     [SerializeField] private float speed;
+    [SerializeField] private GameObject arrow;
+    [SerializeField] private Transform handpoint;
+    [SerializeField] private Transform endpoint;
     
     public void Look(int xDirection)
     {
         var rot = xDirection == -1 ? Quaternion.identity : Quaternion.Euler(0f, 180f, 0f);
 
         transform.localRotation = rot;
+    }
+
+    /// <summary>
+    /// 애니메이션 클립 이벤트
+    /// </summary>
+    public void OnShoot()
+    {
+        var arrowInstance = GameObject.Instantiate(arrow).GetComponent<Arrow>();
+
+        arrowInstance.Shoot(this.gameObject, handpoint, endpoint, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ:45f);
     }
 
     public void DoIdle()

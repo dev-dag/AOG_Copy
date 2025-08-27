@@ -14,6 +14,7 @@ public partial class AttackAction : Action
     {
         if (Archer.Value.State == global::Archer.AnimationEnum.Idle)
         {
+            Archer.Value.Look(1);
             Archer.Value.DoAttack();
 
             return Status.Running;
