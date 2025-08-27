@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: 15b2d2faaecad4bfb9edc6585d94f509
-AssetOrigin:
-  serializedVersion: 1
-  productId: 72935
-  packageName: 'Miniature Army 2D V.1 [Medieval Style]'
-  packageVersion: 1.0
-  assetPath: Assets/Miniature Army 2D V.1/Sprite/miniature-army1024x768.png
-  uploadId: 202860
+guid: 45e80c81866607444937803e01c375ba
 TextureImporter:
   internalIDToNameTable:
   - first:
