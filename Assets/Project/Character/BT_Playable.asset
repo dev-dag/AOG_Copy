@@ -19,7 +19,7 @@ MonoBehaviour:
   - rid: 740490910165106990
   - rid: 740490910165107021
   - rid: 740490910165107119
-  m_VersionTimestamp: 638919130026031328
+  m_VersionTimestamp: 638919150186192417
   m_CommandBuffer:
     m_Commands: []
   m_RuntimeBlackboardAsset: {fileID: 8161805956965331481}
@@ -76,7 +76,7 @@ MonoBehaviour:
   - rid: 740490910165107050
   - rid: 740490910165107084
   - rid: 740490910165107152
-  m_VersionTimestamp: 638919130035547642
+  m_VersionTimestamp: 638919150192170350
   m_DebugInfo: {fileID: 3186044302118897966}
   m_RuntimeGraph: {fileID: 9169812009799451422}
   AssetID:
@@ -107,7 +107,7 @@ MonoBehaviour:
       Tooltip: 
     NamedChildren: []
   - Name: Attack
-    Story: '[Archer] Attack'
+    Story: '[Archer] Attack By [GameSceneControl] ''s InputData'
     RuntimeTypeID:
       m_Value0: 17435445573779772697
       m_Value1: 10517422450729591683
@@ -115,6 +115,11 @@ MonoBehaviour:
     - Name: Archer
       Type:
         m_SerializableType: Archer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+      Tooltip: 
+    - Name: GameSceneControl
+      Type:
+        m_SerializableType: GameSceneControl, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
       Tooltip: 
     NamedChildren: []
@@ -265,6 +270,7 @@ MonoBehaviour:
           m_Value1: 10517422450729591683
         m_FieldValues:
         - rid: 740490910165107053
+        - rid: 740490910165107267
     - rid: 740490910165107051
       type: {class: PortModel, ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
       data:
@@ -450,6 +456,35 @@ MonoBehaviour:
         IsExposed: 1
         m_IsShared: 0
         m_Value: {fileID: 0}
+    - rid: 740490910165107267
+      type: {class: BehaviorGraphNodeModel/FieldModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
+      data:
+        FieldName: GameSceneControl
+        Type:
+          m_SerializableType: GameSceneControl, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+        LocalValue:
+          rid: 740490910165107268
+        LinkedVariable:
+          rid: 740490910165107269
+    - rid: 740490910165107268
+      type: {class: 'BlackboardVariable`1[[GameSceneControl, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 0
+          m_Value1: 0
+        Name: 
+        m_Value: {fileID: 0}
+    - rid: 740490910165107269
+      type: {class: 'TypedVariableModel`1[[GameSceneControl, Assembly-CSharp]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        ID:
+          m_Value0: 9627688240432764468
+          m_Value1: 15850623268521336204
+        Name: GameSceneControl
+        IsExposed: 1
+        m_IsShared: 0
+        m_Value: {fileID: 0}
 --- !u!114 &3186044302118897966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,7 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c02bb70996b49eba31d0c206e28da24, type: 3}
   m_Name: BT_Playable Blackboard
   m_EditorClassIdentifier: 
-  VersionTimestamp: 638919130026031328
+  VersionTimestamp: 638919150186192417
   AssetID:
     m_Value0: 6058038835057334067
     m_Value1: 11229370387208951354
@@ -525,16 +560,16 @@ MonoBehaviour:
   m_Name: BT_Playable
   m_EditorClassIdentifier: 
   Graphs:
-  - rid: 740490910165107253
+  - rid: 740490910165107270
   RootGraph:
-    rid: 740490910165107253
+    rid: 740490910165107270
   m_DebugInfo: {fileID: 3186044302118897966}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 740490910165107253
+    - rid: 740490910165107270
       type: {class: BehaviorGraphModule, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         AuthoringAssetID:
@@ -542,65 +577,65 @@ MonoBehaviour:
           m_Value1: 11229370387208951354
         m_DebugInfo: {fileID: 0}
         BlackboardReference:
-          rid: 740490910165107254
+          rid: 740490910165107271
         BlackboardGroupReferences: []
         Root:
-          rid: 740490910165107255
+          rid: 740490910165107272
         m_ActiveNodes: []
         m_NodesToTick: []
         m_NodesToEnd:
-          rid: 740490910165107256
+          rid: 740490910165107273
         m_EndedNodes:
-          rid: 740490910165107257
-        m_VersionTimestamp: 638919130035547642
-    - rid: 740490910165107254
+          rid: 740490910165107274
+        m_VersionTimestamp: 638919150192170350
+    - rid: 740490910165107271
       type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         m_Blackboard:
-          rid: 740490910165107258
+          rid: 740490910165107275
         m_Source: {fileID: 8161805956965331481}
-    - rid: 740490910165107255
+    - rid: 740490910165107272
       type: {class: Start, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         ID:
           m_Value0: 9795918818010324532
           m_Value1: 10884284705314167213
         Graph:
-          rid: 740490910165107253
+          rid: 740490910165107270
         m_Parent:
           rid: -2
         m_Child:
-          rid: 740490910165107259
+          rid: 740490910165107276
         Repeat: 1
         AllowMultipleRepeatsPerTick: 0
-    - rid: 740490910165107256
+    - rid: 740490910165107273
       type: {class: 'Stack`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: mscorlib}
       data: 
-    - rid: 740490910165107257
+    - rid: 740490910165107274
       type: {class: 'HashSet`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: System.Core}
       data: 
-    - rid: 740490910165107258
+    - rid: 740490910165107275
       type: {class: Blackboard, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         m_Variables:
-        - rid: 740490910165107260
-        - rid: 740490910165107261
-        - rid: 740490910165107262
-    - rid: 740490910165107259
+        - rid: 740490910165107277
+        - rid: 740490910165107278
+        - rid: 740490910165107279
+    - rid: 740490910165107276
       type: {class: SelectorComposite, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         ID:
           m_Value0: 11903894969718264955
           m_Value1: 9103136384427189208
         Graph:
-          rid: 740490910165107253
+          rid: 740490910165107270
         m_Parent:
-          rid: 740490910165107255
+          rid: 740490910165107272
         m_Children:
-        - rid: 740490910165107263
-        - rid: 740490910165107264
-        - rid: 740490910165107265
-    - rid: 740490910165107260
+        - rid: 740490910165107280
+        - rid: 740490910165107281
+        - rid: 740490910165107282
+    - rid: 740490910165107277
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -608,7 +643,7 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 0}
-    - rid: 740490910165107261
+    - rid: 740490910165107278
       type: {class: 'BlackboardVariable`1[[Archer, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -616,7 +651,7 @@ MonoBehaviour:
           m_Value1: 17104129775315674193
         Name: Archer
         m_Value: {fileID: 0}
-    - rid: 740490910165107262
+    - rid: 740490910165107279
       type: {class: 'BlackboardVariable`1[[GameSceneControl, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -624,41 +659,43 @@ MonoBehaviour:
           m_Value1: 15850623268521336204
         Name: GameSceneControl
         m_Value: {fileID: 0}
-    - rid: 740490910165107263
+    - rid: 740490910165107280
       type: {class: AliveCheckAction, ns: , asm: Assembly-CSharp}
       data:
         ID:
           m_Value0: 11966504887434039668
           m_Value1: 13757284118316125487
         Graph:
-          rid: 740490910165107253
+          rid: 740490910165107270
         m_Parent:
-          rid: 740490910165107259
+          rid: 740490910165107276
         Archer:
-          rid: 740490910165107261
-    - rid: 740490910165107264
+          rid: 740490910165107278
+    - rid: 740490910165107281
       type: {class: MoveAction, ns: , asm: Assembly-CSharp}
       data:
         ID:
           m_Value0: 8591108327798764546
           m_Value1: 2040006824007706260
         Graph:
-          rid: 740490910165107253
+          rid: 740490910165107270
         m_Parent:
-          rid: 740490910165107259
+          rid: 740490910165107276
         Archer:
-          rid: 740490910165107261
+          rid: 740490910165107278
         GameSceneControl:
-          rid: 740490910165107262
-    - rid: 740490910165107265
+          rid: 740490910165107279
+    - rid: 740490910165107282
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
         ID:
           m_Value0: 6621753565090745993
           m_Value1: 5699836872117199845
         Graph:
-          rid: 740490910165107253
+          rid: 740490910165107270
         m_Parent:
-          rid: 740490910165107259
+          rid: 740490910165107276
         Archer:
-          rid: 740490910165107261
+          rid: 740490910165107278
+        GameSceneControl:
+          rid: 740490910165107279

@@ -5,11 +5,11 @@ using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Attack", story: "[Archer] Attack", category: "Archer", id: "19d5cc555f25f7f183a374c8fe63f591")]
+[NodeDescription(name: "Attack", story: "[Archer] Attack By [GameSceneControl] 's InputData", category: "Action", id: "19d5cc555f25f7f183a374c8fe63f591")]
 public partial class AttackAction : Action
 {
     [SerializeReference] public BlackboardVariable<Archer> Archer;
-
+    [SerializeReference] public BlackboardVariable<GameSceneControl> GameSceneControl;
     protected override Status OnStart()
     {
         if (Archer.Value.State == global::Archer.AnimationEnum.Idle)
@@ -31,10 +31,20 @@ public partial class AttackAction : Action
         
         if (currentAnimationStateInfo.shortNameHash != global::Archer.AnimationHash.ATTACK) // 상태머신이 갱신되지 않은 경우
         {
+            if (GameSceneControl.Value.InputData.xDirection != 0)
+            {
+                return Status.Success;
+            }
+
             return Status.Running;
         }
         else if (currentAnimationStateInfo.normalizedTime < 1f)
         {
+            if (currentAnimationStateInfo.normalizedTime < 0.2f && GameSceneControl.Value.InputData.xDirection != 0) // 공격 캔슬
+            {
+                return Status.Failure;
+            }
+
             return Status.Running;
         }
         else
