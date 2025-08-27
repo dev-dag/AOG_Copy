@@ -22,6 +22,6 @@ public class GameManager : SingleTon<GameManager>
     private void OnSceneLoaded()
     {
         GaeSceneControl = GameObject.FindGameObjectWithTag("SceneControl").GetComponent<GameSceneControl>(); // 씬 컨트롤 캐싱
-        GaeSceneControl.Initialize(60f);
+        GaeSceneControl.Initialize(Time.time + 60f);
     }
 }
