@@ -37,7 +37,7 @@
     },
     "com.unity.2d.common": {
       "version": "10.0.0",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.burst": "1.8.4",
