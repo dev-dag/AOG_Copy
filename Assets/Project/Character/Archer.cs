@@ -31,9 +31,12 @@ public class Archer : MonoBehaviour
     public float MaxHP { get => maxHP; }
     public Rigidbody2D RigidBody { get => rigidBody; }
     public float Speed { get => speed; }
+    public bool DoBehavior { get => doBehavior; }
+    public BoxCollider2D Collider { get => collider; }
 
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidBody;
+    [SerializeField] private BoxCollider2D collider;
     [SerializeField] private AnimationEnum state;
     [SerializeField] private float currentHP;
     [SerializeField] private float maxHP;
@@ -41,7 +44,16 @@ public class Archer : MonoBehaviour
     [SerializeField] private GameObject arrow;
     [SerializeField] private Transform handpoint;
     [SerializeField] private Transform endpoint;
-    
+    [SerializeField] private bool doBehavior;
+
+    public void Initialize(float newMaxHP, float newSpeed)
+    {
+        maxHP = newMaxHP;
+        speed = newSpeed;
+
+        doBehavior = true;
+    }
+
     public void Look(int xDirection)
     {
         var rot = xDirection == -1 ? Quaternion.identity : Quaternion.Euler(0f, 180f, 0f);
