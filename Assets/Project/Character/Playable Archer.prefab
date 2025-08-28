@@ -85,7 +85,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &7814457972260437001
 MonoBehaviour:
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95000013227593822}
   rigidBody: {fileID: 4030271298848992352}
-  collider: {fileID: 0}
+  collider: {fileID: 4313006665520780342}
   state: 0
   currentHP: 100
   maxHP: 100
