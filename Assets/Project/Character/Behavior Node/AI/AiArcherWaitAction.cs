@@ -16,6 +16,7 @@ public partial class AiArcherWaitAction : Action
     protected override Status OnStart()
     {
         waitFor = Time.time + GetWaitTime();
+        Archer.Value.DoIdle();
         return Status.Running;
     }
 

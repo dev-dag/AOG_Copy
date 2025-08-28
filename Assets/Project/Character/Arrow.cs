@@ -19,7 +19,7 @@ public class Arrow : MonoBehaviour
     [SerializeField] private Quaternion rotation;
     [SerializeField] private float maxY;
     [SerializeField] private float speed;
-    [SerializeField] private GameObject shooter;
+    [SerializeField] private Archer shooter;
     [SerializeField] private bool isHit;
 
     protected CancellationTokenSource cancelToken;
@@ -29,7 +29,7 @@ public class Arrow : MonoBehaviour
         
     }
 
-    public virtual void Shoot(GameObject newShooter, Transform startTransform, Transform endTransform, float newMaxY = 5f, float newSpeed = 1f, float arrowRotOffsetZ = 0f)
+    public virtual void Shoot(Archer newShooter, Transform startTransform, Transform endTransform, float newMaxY = 5f, float newSpeed = 1f, float arrowRotOffsetZ = 0f)
     {
         startPos = startTransform.position;
         endPos = endTransform.position;
@@ -54,7 +54,7 @@ public class Arrow : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == shooter)
+        if (collision.gameObject == shooter.Collider.gameObject)
         {
             return;
         }
@@ -78,9 +78,11 @@ public class Arrow : MonoBehaviour
     {
         float r1 = startPos.x;
         float r2 = endPos.x;
-        float m = (r1 + r2) / 2f;
+        float m = (r1 + r2) / 2f; // 두 근의 중간 값
 
         float a = maxY / ((m - r1) * (m - r2));
+
+        int direction = endPos.x - startPos.x < 0f ? -1 : 1;
 
         Func<float, float, float, float, float> yFunc = (a, x, m, y) =>
         {
@@ -93,7 +95,7 @@ public class Arrow : MonoBehaviour
         {
             ct.ThrowIfCancellationRequested();
 
-            float newPosX = this.transform.position.x + speed * Time.deltaTime;
+            float newPosX = this.transform.position.x + direction * speed * Time.deltaTime;
             float newDeltaY = yFunc(a, newPosX, m, maxY);
 
             Vector3 newPos = new Vector2(newPosX, startPos.y + newDeltaY);

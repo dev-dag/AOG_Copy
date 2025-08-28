@@ -68,7 +68,7 @@ public class Archer : MonoBehaviour
     {
         var arrowInstance = GameObject.Instantiate(arrow).GetComponent<Arrow>();
 
-        arrowInstance.Shoot(this.gameObject, handpoint, endpoint, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ:45f);
+        arrowInstance.Shoot(this, handpoint, endpoint, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ:45f);
     }
 
     public void DoIdle()
