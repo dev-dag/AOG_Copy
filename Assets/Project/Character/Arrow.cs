@@ -21,6 +21,7 @@ public class Arrow : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Archer shooter;
     [SerializeField] private bool isHit;
+    [SerializeField] private int damage;
 
     protected CancellationTokenSource cancelToken;
 
@@ -29,7 +30,7 @@ public class Arrow : MonoBehaviour
         
     }
 
-    public virtual void Shoot(Archer newShooter, Transform startTransform, Transform endTransform, float newMaxY = 5f, float newSpeed = 1f, float arrowRotOffsetZ = 0f)
+    public virtual void Shoot(Archer newShooter, int newDamage, Transform startTransform, Transform endTransform, float newMaxY = 5f, float newSpeed = 1f, float arrowRotOffsetZ = 0f)
     {
         startPos = startTransform.position;
         endPos = endTransform.position;
@@ -37,6 +38,7 @@ public class Arrow : MonoBehaviour
         speed = newSpeed;
         shooter = newShooter;
         renderTransform.rotation = Quaternion.Euler(0f, 0f, arrowRotOffsetZ);
+        damage = newDamage;
 
         this.transform.position = startTransform.position;
 
@@ -71,7 +73,10 @@ public class Arrow : MonoBehaviour
     protected virtual void OnHit(Collider2D collider)
     {
         isHit = true;
+
         DeleteProc();
+
+        collider.gameObject.GetComponentInParent<Archer>().TakeHit(damage);
     }
 
     protected virtual async Awaitable MoveArrow(CancellationToken ct)

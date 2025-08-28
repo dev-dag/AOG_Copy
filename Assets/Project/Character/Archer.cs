@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 
 /// <summary>
@@ -38,20 +37,25 @@ public class Archer : MonoBehaviour
     [SerializeField] private Rigidbody2D rigidBody;
     [SerializeField] private BoxCollider2D collider;
     [SerializeField] private AnimationEnum state;
-    [SerializeField] private float currentHP;
-    [SerializeField] private float maxHP;
+    [SerializeField] private int currentHP;
+    [SerializeField] private int maxHP;
     [SerializeField] private float speed;
     [SerializeField] private GameObject arrow;
     [SerializeField] private Transform handpoint;
     [SerializeField] private Transform endpoint;
     [SerializeField] private bool doBehavior;
 
-    public void Initialize(float newMaxHP, float newSpeed)
+    public void Initialize(int newMaxHP, int newSpeed)
     {
         maxHP = newMaxHP;
         speed = newSpeed;
 
         doBehavior = true;
+    }
+
+    public void TakeHit(int damage)
+    {
+        currentHP -= damage;
     }
 
     public void Look(int xDirection)
@@ -68,7 +72,7 @@ public class Archer : MonoBehaviour
     {
         var arrowInstance = GameObject.Instantiate(arrow).GetComponent<Arrow>();
 
-        arrowInstance.Shoot(this, handpoint, endpoint, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ:45f);
+        arrowInstance.Shoot(this, 10, handpoint, endpoint, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ:45f);
     }
 
     public void DoIdle()
