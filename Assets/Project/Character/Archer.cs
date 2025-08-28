@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 /// <summary>
@@ -12,7 +13,8 @@ public class Archer : MonoBehaviour
         Walk,
         Attack,
         Hurt,
-        Die
+        Die,
+        Victory,
     }
 
     public struct AnimationHash
@@ -21,33 +23,37 @@ public class Archer : MonoBehaviour
         public static readonly int WALK = Animator.StringToHash("walk");
         public static readonly int ATTACK = Animator.StringToHash("attack");
         public static readonly int HURT = Animator.StringToHash("hurt");
+        public static readonly int VICTORY = Animator.StringToHash("victory");
         public static readonly int DIE = Animator.StringToHash("die");
     }
 
     public AnimationEnum State { get => state; }
     public Animator Animator { get => animator; }
-    public float CurrentHP { get => currentHP; }
+    public float CurrentHP { get => currentHP_Observer.Value; }
     public float MaxHP { get => maxHP; }
     public Rigidbody2D RigidBody { get => rigidBody; }
     public float Speed { get => speed; }
     public bool DoBehavior { get => doBehavior; }
     public BoxCollider2D Collider { get => collider; }
+    public Archer Target { get => target; }
 
-    [SerializeField] private Animator animator;
-    [SerializeField] private Rigidbody2D rigidBody;
-    [SerializeField] private BoxCollider2D collider;
+    [SerializeField, Required] private Animator animator;
+    [SerializeField, Required] private Rigidbody2D rigidBody;
+    [SerializeField, Required] private BoxCollider2D collider;
     [SerializeField] private AnimationEnum state;
-    [SerializeField] private int currentHP;
+    [SerializeField] private ObserverProperty<int> currentHP_Observer;
     [SerializeField] private int maxHP;
     [SerializeField] private float speed;
-    [SerializeField] private GameObject arrow;
-    [SerializeField] private Transform handpoint;
-    [SerializeField] private Transform endpoint;
+    [SerializeField, Required] private GameObject arrow;
+    [SerializeField, Required] private Transform handpoint;
+    [SerializeField] private Archer target;
     [SerializeField] private bool doBehavior;
 
-    public void Initialize(int newMaxHP, int newSpeed)
+    public void Initialize(Archer newTarget, ObserverProperty<int> newHP_Observer, float newSpeed)
     {
-        maxHP = newMaxHP;
+        target = newTarget;
+        currentHP_Observer = newHP_Observer;
+        maxHP = newHP_Observer.Value;
         speed = newSpeed;
 
         doBehavior = true;
@@ -55,7 +61,7 @@ public class Archer : MonoBehaviour
 
     public void TakeHit(int damage)
     {
-        currentHP -= damage;
+        currentHP_Observer.Value -= damage;
     }
 
     public void Look(int xDirection)
@@ -72,7 +78,7 @@ public class Archer : MonoBehaviour
     {
         var arrowInstance = GameObject.Instantiate(arrow).GetComponent<Arrow>();
 
-        arrowInstance.Shoot(this, 10, handpoint, endpoint, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ:45f);
+        arrowInstance.Shoot(this, 100, handpoint, target.transform, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ:45f);
     }
 
     public void DoIdle()
@@ -103,5 +109,11 @@ public class Archer : MonoBehaviour
     {
         state = AnimationEnum.Die;
         animator.Play(AnimationHash.DIE);
+    }
+
+    public void DoVictory()
+    {
+        state = AnimationEnum.Victory;
+        animator.Play(AnimationHash.VICTORY);
     }
 }

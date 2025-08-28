@@ -76,7 +76,11 @@ public class Arrow : MonoBehaviour
 
         DeleteProc();
 
-        collider.gameObject.GetComponentInParent<Archer>().TakeHit(damage);
+        var archer = collider.gameObject.GetComponentInParent<Archer>();
+        if (archer != null)
+        {
+            archer.TakeHit(damage);
+        }
     }
 
     protected virtual async Awaitable MoveArrow(CancellationToken ct)

@@ -10,15 +10,23 @@ using UnityEngine.UI;
 /// </summary>
 public class MoveControllerView : MonoBehaviour
 {
+    public bool IsInitialized { get => isInitialized; }
+
     [SerializeField] private GameObject leftObject;
     [SerializeField] private GameObject rightObject;
 
     private GameSceneControl gameSceneControl;
     private InputData inputData;
     private InputAction clickAction;
+    private bool isInitialized = false;
 
     private void Update()
     {
+        if (IsInitialized == false)
+        {
+            return;
+        }
+
         inputData.xDirection = 0;
 
         var value = clickAction.ReadValue<float>();
@@ -51,5 +59,7 @@ public class MoveControllerView : MonoBehaviour
         gameSceneControl = newGameSceneControl;
         inputData = gameSceneControl.InputData;
         clickAction = gameSceneControl.InputActionAsset.FindActionMap("UI").FindAction("Click");
+
+        isInitialized = true;
     }
 }

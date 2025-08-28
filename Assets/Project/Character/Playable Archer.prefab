@@ -48,7 +48,7 @@ Animator:
   m_GameObject: {fileID: 1000010854855540}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d802920b5f1124a778f16c31c3373388, type: 2}
+  m_Controller: {fileID: 9100000, guid: 06e586d0aefcc47448b9562871d471f4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   speed: 40
   arrow: {fileID: 7028120122438700806, guid: 7397bbb4a262f3944b851ad5ca738c3b, type: 3}
   handpoint: {fileID: 522933069145346977}
-  endpoint: {fileID: 0}
+  targetTransform: {fileID: 0}
   doBehavior: 0
 --- !u!1 &1000011210365404
 GameObject:
