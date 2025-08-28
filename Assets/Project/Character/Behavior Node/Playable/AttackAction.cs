@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Attack", story: "[Archer] Attack By [GameSceneControl] 's InputData", category: "Action", id: "19d5cc555f25f7f183a374c8fe63f591")]
+[NodeDescription(name: "Attack", story: "[Archer] Attack By [GameSceneControl] 's InputData", category: "Archer/Playable", id: "19d5cc555f25f7f183a374c8fe63f591")]
 public partial class AttackAction : Action
 {
     [SerializeReference] public BlackboardVariable<Archer> Archer;
