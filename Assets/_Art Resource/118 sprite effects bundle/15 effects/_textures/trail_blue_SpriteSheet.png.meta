@@ -50,9 +50,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -128,7 +128,183 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: trail_blue_SpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 648
+        width: 448
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be32e9a894be77e4c82b2e35a6852dd4
+      internalID: 1583009680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail_blue_SpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 644
+        width: 444
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 851d3ad1010a1cf49ac0c55bbe15c736
+      internalID: -1783258362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail_blue_SpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 648
+        width: 464
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64316011092a5b34d8ea7cf506092d00
+      internalID: 1465807471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail_blue_SpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 660
+        width: 472
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7eef9d8cdfad884580c7cec25065457
+      internalID: -2006492122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail_blue_SpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 148
+        width: 480
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b038cd09f2feaea49ba9011d5fc83f27
+      internalID: -141232080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail_blue_SpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 144
+        width: 428
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0facd9eb689d97409d8b88238b06b34
+      internalID: 648156471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail_blue_SpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 148
+        width: 428
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f247365f0bbefb0489e3ee9658a327fd
+      internalID: 593924966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trail_blue_SpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 156
+        width: 460
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be9bcccce9f8e7f4683d876cfa28c350
+      internalID: -527687216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -141,8 +317,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
-    nameFileIdTable: {}
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      trail_blue_SpriteSheet_0: 1583009680
+      trail_blue_SpriteSheet_1: -1783258362
+      trail_blue_SpriteSheet_2: -1866411313
+      trail_blue_SpriteSheet_3: 1465807471
+      trail_blue_SpriteSheet_4: -2006492122
+      trail_blue_SpriteSheet_5: -141232080
+      trail_blue_SpriteSheet_6: 648156471
+      trail_blue_SpriteSheet_7: 593924966
+      trail_blue_SpriteSheet_8: -527687216
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

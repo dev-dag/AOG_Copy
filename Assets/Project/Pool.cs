@@ -8,7 +8,7 @@ public class Pool : SerializedMonoBehaviour
 {
     [SerializeField] private Dictionary<string, ObjectPool<object>> pools = new Dictionary<string, ObjectPool<object>>();
 
-    public void RegistPool<T>(string key, Func<object> onCreate, Action<object> onGet = null, Action<object> onRelease = null, Action<object> onDestroy = null)
+    public void RegistPool(string key, Func<object> onCreate, Action<object> onGet = null, Action<object> onRelease = null, Action<object> onDestroy = null)
     {
         ObjectPool<object> newPool = new ObjectPool<object>(onCreate, onGet, onRelease, onDestroy, defaultCapacity: 1);
 
