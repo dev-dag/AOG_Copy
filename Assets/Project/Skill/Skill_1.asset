@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941fd28f474bfe449b5217108368c840, type: 3}
+  m_Name: Skill_1
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 3363839516221785816, guid: 456e4239ac231744e8f14645ae504b19, type: 3}
+  animatorStateName: skill_hell_fire
+  id: 1
+  speed: 0.8
+  description: "\uD5EC\uD30C\uC774\uC5B4 \uD638\uCD9C"
+  maxY: 7
+  coolTime: 3
+  damage: 300
+  icon: {fileID: -8025984894158855541, guid: a1fa8f6a438c5a04aad4d64ae02faf31, type: 3}

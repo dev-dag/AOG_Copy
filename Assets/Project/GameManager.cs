@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : SingleTon<GameManager>
 {
     public GameSceneControl GameSceneControl { get; private set; }
+    public Dictionary<int, SO_Skill> SkillData { get => skillData; }
+
+    [SerializeField] private Dictionary<int, SO_Skill> skillData;
 
     private void Start()
     {

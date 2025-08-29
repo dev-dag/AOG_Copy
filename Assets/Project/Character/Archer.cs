@@ -17,6 +17,7 @@ public class Archer : SerializedMonoBehaviour
         Hurt,
         Die,
         Victory,
+        Skill,
     }
 
     public struct AnimationHash
@@ -40,6 +41,7 @@ public class Archer : SerializedMonoBehaviour
     public Archer Target { get => target; }
     public Dictionary<int, ObserverProperty<SO_Skill>> Skills { get => skills; }
     public bool IsInitialized { get => isInitialized; }
+    public Dictionary<int, ObserverProperty<float>> SkillCoolTimes { get => skillCoolTimes; }
 
     [SerializeField, Required] private Animator animator;
     [SerializeField, Required] private Rigidbody2D rigidBody;
@@ -53,6 +55,7 @@ public class Archer : SerializedMonoBehaviour
     [SerializeField] private Archer target;
     [SerializeField] private bool doBehavior;
     [SerializeField] private Dictionary<int, ObserverProperty<SO_Skill>> skills = new Dictionary<int, ObserverProperty<SO_Skill>>();
+    [SerializeField] private Dictionary<int, ObserverProperty<float>> skillCoolTimes = new Dictionary<int, ObserverProperty<float>>();
     [SerializeField] private SO_Skill skill1;
     [SerializeField] private bool isInitialized = false;
 
@@ -62,13 +65,23 @@ public class Archer : SerializedMonoBehaviour
         currentHP_Observer = newHP_Observer;
         maxHP = newHP_Observer.Value;
         speed = newSpeed;
+        currentHP_Observer.Value = 1000000000;
 
+        // 스킬 딕셔너리 초기화
         skills.Clear();
         skills.Add(0, new ObserverProperty<SO_Skill>(skill1));
         skills.Add(1, new ObserverProperty<SO_Skill>());
         skills.Add(2, new ObserverProperty<SO_Skill>());
         skills.Add(3, new ObserverProperty<SO_Skill>());
         skills.Add(4, new ObserverProperty<SO_Skill>());
+
+        // 쿨타임 딕셔너리 초기화
+        skillCoolTimes.Clear(); 
+        skillCoolTimes.Add(0, new ObserverProperty<float>(0));
+        skillCoolTimes.Add(1, new ObserverProperty<float>(0));
+        skillCoolTimes.Add(2, new ObserverProperty<float>(0));
+        skillCoolTimes.Add(3, new ObserverProperty<float>(0));
+        skillCoolTimes.Add(4, new ObserverProperty<float>(0));
 
         doBehavior = true;
 
@@ -118,7 +131,7 @@ public class Archer : SerializedMonoBehaviour
             return;
         }
 
-        var globalPool = GameManager.Instance.GameSceneControl.GlobalPool;
+        var globalPool = GameSceneControl.Instance.GlobalPool;
 
         if (globalPool.GetPool("Default Arrow") == null)
         {
@@ -149,6 +162,48 @@ public class Archer : SerializedMonoBehaviour
         Arrow newArrow = (Arrow)arrowPool.Get();
 
         newArrow.Shoot(this, 100, handpoint, target.transform, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ:45f);
+    }
+
+    /// <summary>
+    /// 애니메이션 클립 이벤트
+    /// </summary>
+    public void OnSkillShot(int skillID)
+    {
+        var skillData = GameSceneControl.Instance.SkillDatas[skillID];
+        var globalPool = GameSceneControl.Instance.GlobalPool;
+
+        string poolKey = $"Skill_Arrow_{skillData.Id}";
+
+        if (globalPool.GetPool(poolKey) == null)
+        {
+            Func<object> create = () =>
+            {
+                var newArrow = GameObject.Instantiate(skillData.ArrowPrefab, globalPool.transform).GetComponent<Arrow>();
+                Debug.Log(skillData.ArrowPrefab.gameObject.name);
+                newArrow.Initialize(globalPool.GetPool(poolKey));
+
+                return newArrow;
+            };
+
+            Action<object> get = (instance) =>
+            {
+                var arrowInstnace = (Arrow)instance;
+                arrowInstnace.gameObject.SetActive(true);
+            };
+
+            Action<object> release = (instance) =>
+            {
+                var arrowInstnace = (Arrow)instance;
+                arrowInstnace.gameObject.SetActive(false);
+            };
+
+            globalPool.RegistPool<Arrow>(poolKey, create, get, release);
+        }
+
+        var arrowPool = globalPool.GetPool(poolKey);
+        Arrow newArrow = (Arrow)arrowPool.Get();
+
+        newArrow.Shoot(newShooter: this, newDamage: skillData.Damage, startTransform: handpoint, endTransform: target.transform, newMaxY: skillData.MaxY, newSpeed: skillData.Speed, arrowRotOffsetZ: 45f);
     }
 
     public void DoIdle()
@@ -215,5 +270,12 @@ public class Archer : SerializedMonoBehaviour
 
         state = AnimationEnum.Victory;
         animator.Play(AnimationHash.VICTORY);
+    }
+
+    public void DoSkill(int index)
+    {
+        state = AnimationEnum.Skill;
+        animator.Play(skills[index].Value.AnimatorStateName);
+        skillCoolTimes[index].Value = Time.time + skills[index].Value.CoolTime;
     }
 }

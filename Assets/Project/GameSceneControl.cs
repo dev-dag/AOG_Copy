@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class GameSceneControl : SingleTon<GameSceneControl>
     public Archer Player { get => player; }
     public Archer AI1 { get => AI; }
     public Pool GlobalPool { get => globalPool; }
+    public Dictionary<int, SO_Skill> SkillDatas { get => skillDatas; }
 
     [SerializeField, Required] private ViewControl viewControl;
     [SerializeField, Required] private InputActionAsset inputActionAsset;
@@ -23,6 +25,7 @@ public class GameSceneControl : SingleTon<GameSceneControl>
     [SerializeField] private ObserverProperty<int> playerHP;
     [SerializeField] private ObserverProperty<int> AI_HP;
     [SerializeField, Required] Pool globalPool;
+    [SerializeField] private Dictionary<int, SO_Skill> skillDatas;
 
     protected override void Awake()
     {
@@ -44,9 +47,9 @@ public class GameSceneControl : SingleTon<GameSceneControl>
         TimeLimit = timeLimit;
         inputData = new InputData();
 
-        viewControl.Initialize(this, playerHP, AI_HP);
-
         player.Initialize(AI, playerHP, 40f);
         AI.Initialize(player, AI_HP, 40f);
+
+        viewControl.Initialize(this, playerHP, AI_HP);
     }
 }
