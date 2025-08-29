@@ -24,6 +24,7 @@ public class Arrow : MonoBehaviour
 
     protected CancellationTokenSource cancelToken;
     protected ObjectPool<object> pool;
+    protected ObjectPool<object> fxPool;
 
     private void Awake()
     {
@@ -35,7 +36,7 @@ public class Arrow : MonoBehaviour
         pool = newPool;
     }
 
-    public virtual void Shoot(Archer newShooter, int newDamage, Transform startTransform, Transform endTransform, float newMaxY = 5f, float newSpeed = 1f, float arrowRotOffsetZ = 0f)
+    public virtual void Shoot(Archer newShooter, int newDamage, Transform startTransform, Transform endTransform, ObjectPool<object> newFX_Pool = null, float newMaxY = 5f, float newSpeed = 1f, float arrowRotOffsetZ = 0f)
     {
         startPos = startTransform.position;
         endPos = endTransform.position;
@@ -46,6 +47,7 @@ public class Arrow : MonoBehaviour
         damage = newDamage;
         render.color = Color.white;
         isHit = false;
+        fxPool = newFX_Pool;
         this.transform.rotation = Quaternion.identity;
         this.transform.position = startTransform.position;
 
@@ -85,6 +87,13 @@ public class Arrow : MonoBehaviour
         if (archer != null)
         {
             archer.TakeHit(damage);
+        }
+
+        if (fxPool != null)
+        {
+            PoolingEffect effect = (PoolingEffect)(fxPool.Get());
+            effect.transform.position = archer.transform.position;
+            effect.Initialize(pool);
         }
     }
 

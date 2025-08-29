@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Pool;
 
 /// <summary>
 /// 플레이어블 캐릭터를 제어하는 클래스
@@ -159,13 +160,13 @@ public class Archer : SerializedMonoBehaviour
                 arrowInstnace.gameObject.SetActive(false);
             };
 
-            globalPool.RegistPool<Arrow>("Default Arrow", create, get, release);
+            globalPool.RegistPool("Default Arrow", create, get, release);
         }
 
         var arrowPool = globalPool.GetPool("Default Arrow");
         Arrow newArrow = (Arrow)arrowPool.Get();
 
-        newArrow.Shoot(this, 100, handpoint, target.transform, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ:45f);
+        newArrow.Shoot(newShooter: this, newDamage: 100, startTransform: handpoint, endTransform: target.transform, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ: 45f);
     }
 
     /// <summary>
@@ -176,6 +177,7 @@ public class Archer : SerializedMonoBehaviour
         var skillData = GameSceneControl.Instance.SkillDatas[skillID];
         var globalPool = GameSceneControl.Instance.GlobalPool;
 
+        // 화살 풀링
         string poolKey = $"Skill_Arrow_{skillData.Id}";
 
         if (globalPool.GetPool(poolKey) == null)
@@ -183,7 +185,6 @@ public class Archer : SerializedMonoBehaviour
             Func<object> create = () =>
             {
                 var newArrow = GameObject.Instantiate(skillData.ArrowPrefab, globalPool.transform).GetComponent<Arrow>();
-                Debug.Log(skillData.ArrowPrefab.gameObject.name);
                 newArrow.Initialize(globalPool.GetPool(poolKey));
 
                 return newArrow;
@@ -201,13 +202,47 @@ public class Archer : SerializedMonoBehaviour
                 arrowInstnace.gameObject.SetActive(false);
             };
 
-            globalPool.RegistPool<Arrow>(poolKey, create, get, release);
+            globalPool.RegistPool(poolKey, create, get, release);
         }
 
         var arrowPool = globalPool.GetPool(poolKey);
         Arrow newArrow = (Arrow)arrowPool.Get();
 
-        newArrow.Shoot(newShooter: this, newDamage: skillData.Damage, startTransform: handpoint, endTransform: target.transform, newMaxY: skillData.MaxY, newSpeed: skillData.Speed, arrowRotOffsetZ: 45f);
+        // FX 풀링
+        ObjectPool<object> fxPool = null;
+
+        if (skillData.HitEffectPrefab != null)
+        {
+            string fxKey = $"FX_Skill_Hit_{skillData.Id}";
+
+            if (globalPool.GetPool(poolKey) == null)
+            {
+                Func<object> create = () =>
+                {
+                    var newFX = GameObject.Instantiate(skillData.HitEffectPrefab, globalPool.transform).GetComponent<PoolingEffect>();
+
+                    return newFX;
+                };
+
+                Action<object> get = (instance) =>
+                {
+                    var fxInstnace = (PoolingEffect)instance;
+                    fxInstnace.gameObject.SetActive(true);
+                };
+
+                Action<object> release = (instance) =>
+                {
+                    var fxInstnace = (PoolingEffect)instance;
+                    fxInstnace.gameObject.SetActive(false);
+                };
+
+                globalPool.RegistPool(fxKey, create, get, release);
+            }
+
+            fxPool = globalPool.GetPool(fxKey);
+        }
+
+        newArrow.Shoot(newShooter: this, newDamage: skillData.Damage, startTransform: handpoint, endTransform: target.transform, newFX_Pool: fxPool, newMaxY: skillData.MaxY, newSpeed: skillData.Speed, arrowRotOffsetZ: 45f);
     }
 
     public void DoIdle()

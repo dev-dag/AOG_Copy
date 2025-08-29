@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Pool;
 
 public class HellFireArrow : Arrow
 {
@@ -42,9 +43,9 @@ public class HellFireArrow : Arrow
         hellFireInstance.onHitEvent += (hitArcher) => hitArcher.TakeHit(damage);
     }
 
-    public override void Shoot(Archer newShooter, int newDamage, Transform startTransform, Transform endTransform, float newMaxY = 5, float newSpeed = 1, float arrowRotOffsetZ = 0)
+    public override void Shoot(Archer newShooter, int newDamage, Transform startTransform, Transform endTransform, ObjectPool<object> newFX_Pool = null, float newMaxY = 5f, float newSpeed = 1f, float arrowRotOffsetZ = 0f)
     {
-        base.Shoot(newShooter, newDamage, startTransform, endTransform, newMaxY, newSpeed, arrowRotOffsetZ);
+        base.Shoot(newShooter, newDamage, startTransform, endTransform, newFX_Pool, newMaxY, newSpeed, arrowRotOffsetZ);
 
         hellFireInstance.gameObject.SetActive(false);
     }
