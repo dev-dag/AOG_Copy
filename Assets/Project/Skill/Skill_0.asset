@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941fd28f474bfe449b5217108368c840, type: 3}
   m_Name: Skill_0
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 8811096719184002681, guid: 7397bbb4a262f3944b851ad5ca738c3b, type: 3}
+  arrowPrefab: {fileID: 8811096719184002681, guid: 7b5ebab863acf86429c4b868b552f361, type: 3}
+  hitEffectPrefab: {fileID: 0}
   animatorStateName: skill_penta_arrow
   id: 0
   speed: 60

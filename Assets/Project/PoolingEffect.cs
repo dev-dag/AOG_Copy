@@ -7,12 +7,14 @@ using UnityEngine.Pool;
 public class PoolingEffect : MonoBehaviour
 {
     [SerializeField] private ParticleSystem particle;
+    [SerializeField] private Vector2 offset;
 
     private ObjectPool<object> pool;
 
     public void Initialize(ObjectPool<object> newPool)
     {
         pool = newPool;
+        transform.position = transform.position + (Vector3)offset;
         particle.Play();
     }
 

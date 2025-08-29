@@ -93,7 +93,7 @@ public class Arrow : MonoBehaviour
         {
             PoolingEffect effect = (PoolingEffect)(fxPool.Get());
             effect.transform.position = archer.transform.position;
-            effect.Initialize(pool);
+            effect.Initialize(fxPool);
         }
     }
 

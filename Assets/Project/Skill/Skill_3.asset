@@ -19,6 +19,6 @@ MonoBehaviour:
   speed: 40
   description: "\uC5BC\uC74C \uD654\uC0B4"
   maxY: 1
-  coolTime: 7
+  coolTime: 1
   damage: 50
   icon: {fileID: 3408654276118190589, guid: 5aa7dbaaba261a74d84578ae88a06570, type: 3}

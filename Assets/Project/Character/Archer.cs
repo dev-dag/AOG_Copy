@@ -235,7 +235,7 @@ public class Archer : SerializedMonoBehaviour
         {
             string fxKey = $"FX_Skill_Hit_{skillData.Id}";
 
-            if (globalPool.GetPool(poolKey) == null)
+            if (globalPool.GetPool(fxKey) == null)
             {
                 Func<object> create = () =>
                 {
