@@ -3,12 +3,12 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Arrow : MonoBehaviour
 {
     public bool IsHit { get => isHit; }
 
-    [SerializeField] protected float zRotOffset;
     [SerializeField] protected Transform renderTransform;
     [SerializeField] protected Rigidbody2D rigidBody;
     [SerializeField] protected SpriteRenderer render;
@@ -16,7 +16,6 @@ public class Arrow : MonoBehaviour
     [Space(15f)]
     [SerializeField] protected Vector2 startPos;
     [SerializeField] protected Vector2 endPos;
-    [SerializeField] protected Quaternion rotation;
     [SerializeField] protected float maxY;
     [SerializeField] protected float speed;
     [SerializeField] protected Archer shooter;
@@ -24,10 +23,16 @@ public class Arrow : MonoBehaviour
     [SerializeField] protected int damage;
 
     protected CancellationTokenSource cancelToken;
+    protected ObjectPool<object> pool;
 
     private void Awake()
     {
         
+    }
+
+    public void Initialize(ObjectPool<object> newPool)
+    {
+        pool = newPool;
     }
 
     public virtual void Shoot(Archer newShooter, int newDamage, Transform startTransform, Transform endTransform, float newMaxY = 5f, float newSpeed = 1f, float arrowRotOffsetZ = 0f)
@@ -37,19 +42,19 @@ public class Arrow : MonoBehaviour
         maxY = newMaxY;
         speed = newSpeed;
         shooter = newShooter;
-        renderTransform.rotation = Quaternion.Euler(0f, 0f, arrowRotOffsetZ);
+        renderTransform.localRotation = Quaternion.Euler(0f, 0f, arrowRotOffsetZ);
         damage = newDamage;
-
+        render.color = Color.white;
+        isHit = false;
+        this.transform.rotation = Quaternion.identity;
         this.transform.position = startTransform.position;
 
         if (cancelToken != null)
         {
             cancelToken.Cancel();
         }
-        else
-        {
-            cancelToken = new CancellationTokenSource();
-        }
+
+        cancelToken = new CancellationTokenSource();
 
         MoveArrow(cancelToken.Token);
     }
@@ -134,6 +139,7 @@ public class Arrow : MonoBehaviour
         }
 
         alpha = 0f;
-        Destroy(this.gameObject);
+
+        pool.Release(this);
     }
 }

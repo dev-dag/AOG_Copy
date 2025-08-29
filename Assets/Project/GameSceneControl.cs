@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
 
-public class GameSceneControl : SerializedMonoBehaviour
+public class GameSceneControl : SingleTon<GameSceneControl>
 {
     public float TimeLimit { get; private set; }
     public InputActionAsset InputActionAsset { get => inputActionAsset; } // 인풋 액션 에셋
@@ -13,6 +13,7 @@ public class GameSceneControl : SerializedMonoBehaviour
     public InputData InputData { get => inputData; }
     public Archer Player { get => player; }
     public Archer AI1 { get => AI; }
+    public Pool GlobalPool { get => globalPool; }
 
     [SerializeField, Required] private ViewControl viewControl;
     [SerializeField, Required] private InputActionAsset inputActionAsset;
@@ -21,9 +22,12 @@ public class GameSceneControl : SerializedMonoBehaviour
     [SerializeField, Required] private Archer AI;
     [SerializeField] private ObserverProperty<int> playerHP;
     [SerializeField] private ObserverProperty<int> AI_HP;
+    [SerializeField, Required] Pool globalPool;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         // **** for test
 
         Initialize(Time.time + 80f);

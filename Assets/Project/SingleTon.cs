@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
-public abstract class SingleTon<T> : MonoBehaviour where T : class
+public abstract class SingleTon<T> : SerializedMonoBehaviour where T : class
 {
     public static T Instance { get; private set; }
 
