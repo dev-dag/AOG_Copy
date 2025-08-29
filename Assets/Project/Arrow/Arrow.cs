@@ -8,20 +8,20 @@ public class Arrow : MonoBehaviour
 {
     public bool IsHit { get => isHit; }
 
-    [SerializeField] private float zRotOffset;
-    [SerializeField] private Transform renderTransform;
-    [SerializeField] private Rigidbody2D rigidBody;
-    [SerializeField] private SpriteRenderer render;
+    [SerializeField] protected float zRotOffset;
+    [SerializeField] protected Transform renderTransform;
+    [SerializeField] protected Rigidbody2D rigidBody;
+    [SerializeField] protected SpriteRenderer render;
 
     [Space(15f)]
-    [SerializeField] private Vector2 startPos;
-    [SerializeField] private Vector2 endPos;
-    [SerializeField] private Quaternion rotation;
-    [SerializeField] private float maxY;
-    [SerializeField] private float speed;
-    [SerializeField] private Archer shooter;
-    [SerializeField] private bool isHit;
-    [SerializeField] private int damage;
+    [SerializeField] protected Vector2 startPos;
+    [SerializeField] protected Vector2 endPos;
+    [SerializeField] protected Quaternion rotation;
+    [SerializeField] protected float maxY;
+    [SerializeField] protected float speed;
+    [SerializeField] protected Archer shooter;
+    [SerializeField] protected bool isHit;
+    [SerializeField] protected int damage;
 
     protected CancellationTokenSource cancelToken;
 
@@ -117,7 +117,7 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    private async Awaitable DeleteProc()
+    protected async Awaitable DeleteProc()
     {
         await Awaitable.WaitForSecondsAsync(1f);
 
