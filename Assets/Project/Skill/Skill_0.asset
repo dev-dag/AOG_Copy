@@ -15,9 +15,9 @@ MonoBehaviour:
   arrowPrefab: {fileID: 8811096719184002681, guid: 7397bbb4a262f3944b851ad5ca738c3b, type: 3}
   animatorStateName: skill_penta_arrow
   id: 0
-  speed: 2
+  speed: 60
   description: "5\uC5F0\uC18D \uD654\uC0B4 \uBC1C\uC0AC"
-  maxY: 5
-  coolTime: 0
+  maxY: 8
+  coolTime: 5
   damage: 150
   icon: {fileID: 387569118229989625, guid: af438089f53c4e74584bb260fd577667, type: 3}

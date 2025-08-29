@@ -15,9 +15,9 @@ MonoBehaviour:
   arrowPrefab: {fileID: 3363839516221785816, guid: 456e4239ac231744e8f14645ae504b19, type: 3}
   animatorStateName: skill_hell_fire
   id: 1
-  speed: 0.8
+  speed: 40
   description: "\uD5EC\uD30C\uC774\uC5B4 \uD638\uCD9C"
   maxY: 7
-  coolTime: 3
+  coolTime: 8
   damage: 300
   icon: {fileID: -8025984894158855541, guid: a1fa8f6a438c5a04aad4d64ae02faf31, type: 3}
