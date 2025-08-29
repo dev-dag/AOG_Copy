@@ -12,8 +12,10 @@ public class SO_Skill : ScriptableObject
     public float CoolTime { get => coolTime; }
     public string AnimatorStateName { get => animatorStateName; }
     public int Damage { get => damage; }
+    public PoolingEffect HitEffectPrefab { get => hitEffectPrefab; }
 
     [SerializeField] Arrow arrowPrefab;
+    [SerializeField] PoolingEffect hitEffectPrefab;
     [SerializeField] private string animatorStateName;
     [SerializeField] private int id;
     [SerializeField] private float speed;

@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941fd28f474bfe449b5217108368c840, type: 3}
   m_Name: Skill_3
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 0}
+  arrowPrefab: {fileID: 4991038828056618241, guid: 8fa5ad74e48352e40b148613fda0434f, type: 3}
+  hitEffectPrefab: {fileID: 3224442602648054201, guid: ec1b2eca8d7b58141bde600470ebd064, type: 3}
   animatorStateName: skill_ice_arrow
   id: 3
-  speed: 0.8
+  speed: 40
   description: "\uC5BC\uC74C \uD654\uC0B4"
   maxY: 1
-  coolTime: 0
+  coolTime: 7
+  damage: 50
   icon: {fileID: 3408654276118190589, guid: 5aa7dbaaba261a74d84578ae88a06570, type: 3}

@@ -133,8 +133,6 @@ public class Arrow : MonoBehaviour
 
     protected virtual async Awaitable DeleteProc()
     {
-        await Awaitable.WaitForSecondsAsync(1f);
-
         float alpha = 1f;
         float fadeSpeed = 5f;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Unity.Behavior;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -23,12 +24,18 @@ public class Archer : SerializedMonoBehaviour
 
     public struct AnimationHash
     {
+        // base layer
         public static readonly int IDLE = Animator.StringToHash("idle");
         public static readonly int WALK = Animator.StringToHash("walk");
         public static readonly int ATTACK = Animator.StringToHash("attack");
         public static readonly int HURT = Animator.StringToHash("hurt");
         public static readonly int VICTORY = Animator.StringToHash("victory");
         public static readonly int DIE = Animator.StringToHash("die");
+
+        // condition layer
+        public static readonly int CONDITION_NORMAL = Animator.StringToHash("condition_normal");
+        public static readonly int CONDITION_FROZEN = Animator.StringToHash("condition_frozen");
+        public static readonly int CONDITION_BURN = Animator.StringToHash("condition_burn");
     }
 
     public AnimationEnum State { get => state; }
@@ -43,6 +50,7 @@ public class Archer : SerializedMonoBehaviour
     public Dictionary<int, ObserverProperty<SO_Skill>> Skills { get => skills; }
     public bool IsInitialized { get => isInitialized; }
     public Dictionary<int, ObserverProperty<float>> SkillCoolTimes { get => skillCoolTimes; }
+    public ConditionControl ConditionControl { get => conditionControl; }
 
     [SerializeField, Required] private Animator animator;
     [SerializeField, Required] private Rigidbody2D rigidBody;
@@ -63,9 +71,13 @@ public class Archer : SerializedMonoBehaviour
     [SerializeField] private SO_Skill skill4;
     [SerializeField] private SO_Skill skill5;
     [SerializeField] private bool isInitialized = false;
+    [SerializeField] private ConditionControl conditionControl;
+    [SerializeField] private ConditionEffector conditionAnimation;
 
     public void Initialize(Archer newTarget, ObserverProperty<int> newHP_Observer, float newSpeed)
     {
+        conditionControl = new ConditionControl();
+        conditionAnimation = new ConditionEffector(animator, conditionControl);
         target = newTarget;
         currentHP_Observer = newHP_Observer;
         maxHP = newHP_Observer.Value;
@@ -123,7 +135,15 @@ public class Archer : SerializedMonoBehaviour
         }
 
         Look(xDirection);
-        rigidBody.MovePosition(transform.position + Vector3.right * xDirection * speed * Time.deltaTime);
+
+        if ((conditionControl.ConditionFlag & ConditionControl.ConditionEnum.Frozen) > 0) // 빙결 상태이상에 걸린 경우 이동속도 반감
+        {
+            rigidBody.MovePosition(transform.position + Vector3.right * xDirection * speed * 0.5f * Time.deltaTime);
+        }
+        else
+        {
+            rigidBody.MovePosition(transform.position + Vector3.right * xDirection * speed * Time.deltaTime);
+        }
     }
 
     /// <summary>
