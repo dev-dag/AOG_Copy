@@ -12,7 +12,7 @@ public partial class MoveAction : Action
     [SerializeReference] public BlackboardVariable<GameSceneControl> GameSceneControl;
     protected override Status OnStart()
     {
-        if (Archer.Value.State is global::Archer.AnimationEnum.Attack or global::Archer.AnimationEnum.Hurt or global::Archer.AnimationEnum.Die)
+        if (Archer.Value.State is global::Archer.AnimationEnum.Attack or global::Archer.AnimationEnum.Hurt or global::Archer.AnimationEnum.Die or global::Archer.AnimationEnum.Skill)
         {
             return Status.Failure;
         }

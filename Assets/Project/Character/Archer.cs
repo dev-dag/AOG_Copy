@@ -57,6 +57,10 @@ public class Archer : SerializedMonoBehaviour
     [SerializeField] private Dictionary<int, ObserverProperty<SO_Skill>> skills = new Dictionary<int, ObserverProperty<SO_Skill>>();
     [SerializeField] private Dictionary<int, ObserverProperty<float>> skillCoolTimes = new Dictionary<int, ObserverProperty<float>>();
     [SerializeField] private SO_Skill skill1;
+    [SerializeField] private SO_Skill skill2;
+    [SerializeField] private SO_Skill skill3;
+    [SerializeField] private SO_Skill skill4;
+    [SerializeField] private SO_Skill skill5;
     [SerializeField] private bool isInitialized = false;
 
     public void Initialize(Archer newTarget, ObserverProperty<int> newHP_Observer, float newSpeed)
@@ -70,10 +74,10 @@ public class Archer : SerializedMonoBehaviour
         // 스킬 딕셔너리 초기화
         skills.Clear();
         skills.Add(0, new ObserverProperty<SO_Skill>(skill1));
-        skills.Add(1, new ObserverProperty<SO_Skill>());
-        skills.Add(2, new ObserverProperty<SO_Skill>());
-        skills.Add(3, new ObserverProperty<SO_Skill>());
-        skills.Add(4, new ObserverProperty<SO_Skill>());
+        skills.Add(1, new ObserverProperty<SO_Skill>(skill2));
+        skills.Add(2, new ObserverProperty<SO_Skill>(skill3));
+        skills.Add(3, new ObserverProperty<SO_Skill>(skill4));
+        skills.Add(4, new ObserverProperty<SO_Skill>(skill5));
 
         // 쿨타임 딕셔너리 초기화
         skillCoolTimes.Clear(); 

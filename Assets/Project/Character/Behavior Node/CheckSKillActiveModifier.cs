@@ -40,19 +40,23 @@ public partial class CheckSKillActiveModifier : Modifier
             {
                 return Status.Running;
             }
-            else if (currentAnimationStateInfo.tagHash == Animator.StringToHash("Skill") && currentAnimationStateInfo.normalizedTime < 1f)
+            else if (currentAnimationStateInfo.tagHash == Animator.StringToHash("Skill"))
             {
-                return Status.Running;
-            }
-            else if (currentAnimationStateInfo.tagHash == Animator.StringToHash("Skill") && currentAnimationStateInfo.normalizedTime >= 1f)
-            {
-                if (GameSceneControl.Value.InputData.ActivatedSkillIndex.Value == skillIndexCache) // 예약된 다른 스킬이 없는 경우
+                if (currentAnimationStateInfo.normalizedTime < 1f)
                 {
-                    GameSceneControl.Value.InputData.ActivatedSkillIndex.Value = -1;
+                    return Status.Running;
                 }
+                else
+                {
+                    if (GameSceneControl.Value.InputData.ActivatedSkillIndex.Value == skillIndexCache) // 예약된 다른 스킬이 없는 경우
+                    {
+                        GameSceneControl.Value.InputData.ActivatedSkillIndex.Value = -1;
+                        skillIndexCache = -1;
+                    }
 
-                Archer.Value.DoIdle();
-                return Status.Success;
+                    Archer.Value.DoIdle();
+                    return Status.Success;
+                }
             }
             else
             {
@@ -63,6 +67,7 @@ public partial class CheckSKillActiveModifier : Modifier
         {
             skillIndexCache = GameSceneControl.Value.InputData.ActivatedSkillIndex.Value;
             Archer.Value.DoSkill(skillIndexCache);
+            EndNode(Child);
             return Status.Running;
         }
         else
