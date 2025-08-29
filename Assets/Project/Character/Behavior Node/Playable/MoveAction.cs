@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
@@ -27,8 +27,7 @@ public partial class MoveAction : Action
             }
             else
             {
-                Archer.Value.Look(xDirection);
-                Archer.Value.RigidBody.MovePosition(Archer.Value.transform.position + Vector3.right * xDirection * Archer.Value.Speed * Time.deltaTime);
+                Archer.Value.MoveFoward(xDirection);
 
                 if (Archer.Value.State != global::Archer.AnimationEnum.Walk)
                 {

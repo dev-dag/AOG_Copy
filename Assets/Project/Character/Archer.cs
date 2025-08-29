@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 /// <summary>
@@ -69,6 +70,12 @@ public class Archer : MonoBehaviour
         var rot = xDirection == -1 ? Quaternion.identity : Quaternion.Euler(0f, 180f, 0f);
 
         transform.localRotation = rot;
+    }
+
+    public void MoveFoward(int xDirection)
+    {
+        Look(xDirection);
+        rigidBody.MovePosition(transform.position + Vector3.right * xDirection * speed * Time.deltaTime);
     }
 
     /// <summary>

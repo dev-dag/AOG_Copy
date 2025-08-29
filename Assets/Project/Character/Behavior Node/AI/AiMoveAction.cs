@@ -30,9 +30,7 @@ public partial class AiMoveAction : Action
         else
         {
             int direction = point.x - Archer.Value.transform.position.x < 0 ? -1 : 1;
-            Archer.Value.Look(direction);
-
-            Archer.Value.RigidBody.MovePosition(Archer.Value.transform.position + Vector3.right * direction * Archer.Value.Speed * Time.deltaTime);
+            Archer.Value.MoveFoward(direction);
 
             return Status.Running;
         }
