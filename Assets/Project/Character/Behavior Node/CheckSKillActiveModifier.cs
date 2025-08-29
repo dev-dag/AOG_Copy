@@ -52,10 +52,17 @@ public partial class CheckSKillActiveModifier : Modifier
                     {
                         GameSceneControl.Value.InputData.ActivatedSkillIndex.Value = -1;
                         skillIndexCache = -1;
-                    }
 
-                    Archer.Value.DoIdle();
-                    return Status.Success;
+                        Archer.Value.DoIdle();
+                        return Status.Success;
+                    }
+                    else
+                    {
+                        skillIndexCache = GameSceneControl.Value.InputData.ActivatedSkillIndex.Value;
+                        Archer.Value.DoSkill(skillIndexCache);
+                        EndNode(Child);
+                        return Status.Running;
+                    }
                 }
             }
             else
