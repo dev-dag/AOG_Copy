@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// 플레이어블 캐릭터를 제어하는 클래스
 /// </summary>
-public class Archer : MonoBehaviour
+public class Archer : SerializedMonoBehaviour
 {
     public enum AnimationEnum
     {
@@ -38,6 +38,8 @@ public class Archer : MonoBehaviour
     public bool DoBehavior { get => doBehavior; }
     public BoxCollider2D Collider { get => collider; }
     public Archer Target { get => target; }
+    public Dictionary<int, ObserverProperty<SO_Skill>> Skills { get => skills; }
+    public bool IsInitialized { get => isInitialized; }
 
     [SerializeField, Required] private Animator animator;
     [SerializeField, Required] private Rigidbody2D rigidBody;
@@ -50,6 +52,9 @@ public class Archer : MonoBehaviour
     [SerializeField, Required] private Transform handpoint;
     [SerializeField] private Archer target;
     [SerializeField] private bool doBehavior;
+    [SerializeField] private Dictionary<int, ObserverProperty<SO_Skill>> skills = new Dictionary<int, ObserverProperty<SO_Skill>>();
+    [SerializeField] private SO_Skill skill1;
+    [SerializeField] private bool isInitialized = false;
 
     public void Initialize(Archer newTarget, ObserverProperty<int> newHP_Observer, float newSpeed)
     {
@@ -58,17 +63,35 @@ public class Archer : MonoBehaviour
         maxHP = newHP_Observer.Value;
         speed = newSpeed;
 
+        skills.Clear();
+        skills.Add(0, new ObserverProperty<SO_Skill>(skill1));
+        skills.Add(1, new ObserverProperty<SO_Skill>());
+        skills.Add(2, new ObserverProperty<SO_Skill>());
+        skills.Add(3, new ObserverProperty<SO_Skill>());
+        skills.Add(4, new ObserverProperty<SO_Skill>());
 
         doBehavior = true;
+
+        isInitialized = true;
     }
 
     public void TakeHit(int damage)
     {
+        if (isInitialized == false)
+        {
+            return;
+        }
+
         currentHP_Observer.Value -= damage;
     }
 
     public void Look(int xDirection)
     {
+        if (isInitialized == false)
+        {
+            return;
+        }
+
         var rot = xDirection == -1 ? Quaternion.identity : Quaternion.Euler(0f, 180f, 0f);
 
         transform.localRotation = rot;
@@ -76,6 +99,11 @@ public class Archer : MonoBehaviour
 
     public void MoveFoward(int xDirection)
     {
+        if (isInitialized == false)
+        {
+            return;
+        }
+
         Look(xDirection);
         rigidBody.MovePosition(transform.position + Vector3.right * xDirection * speed * Time.deltaTime);
     }
@@ -85,6 +113,11 @@ public class Archer : MonoBehaviour
     /// </summary>
     public void OnShoot()
     {
+        if (isInitialized == false)
+        {
+            return;
+        }
+
         var globalPool = GameManager.Instance.GameSceneControl.GlobalPool;
 
         if (globalPool.GetPool("Default Arrow") == null)
@@ -120,36 +153,66 @@ public class Archer : MonoBehaviour
 
     public void DoIdle()
     {
+        if (isInitialized == false)
+        {
+            return;
+        }
+
         state = AnimationEnum.Idle;
         animator.Play(AnimationHash.IDLE);
     }
 
     public void DoWalk()
     {
+        if (isInitialized == false)
+        {
+            return;
+        }
+
         state = AnimationEnum.Walk;
         animator.Play(AnimationHash.WALK);
     }
 
     public void DoAttack()
     {
+        if (isInitialized == false)
+        {
+            return;
+        }
+
         state = AnimationEnum.Attack;
         animator.Play(AnimationHash.ATTACK);
     }
 
     public void DoHurt()
     {
+        if (isInitialized == false)
+        {
+            return;
+        }
+
         state = AnimationEnum.Hurt;
         animator.Play(AnimationHash.HURT);
     }
 
     public void DoDie()
     {
+        if (isInitialized == false)
+        {
+            return;
+        }
+
         state = AnimationEnum.Die;
         animator.Play(AnimationHash.DIE);
     }
 
     public void DoVictory()
     {
+        if (isInitialized == false)
+        {
+            return;
+        }
+
         state = AnimationEnum.Victory;
         animator.Play(AnimationHash.VICTORY);
     }
