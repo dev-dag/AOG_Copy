@@ -122,7 +122,7 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    protected async Awaitable DeleteProc()
+    protected virtual async Awaitable DeleteProc()
     {
         await Awaitable.WaitForSecondsAsync(1f);
 

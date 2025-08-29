@@ -6,6 +6,7 @@ using UnityEngine;
 public class HellFire : MonoBehaviour
 {
     public event Action onExitEvent;
+    public event Action<Archer> onHitEvent;
 
     [SerializeField] private GameObject indicateInstance;
     [SerializeField] private Vector2 indicateOffset;
@@ -23,6 +24,9 @@ public class HellFire : MonoBehaviour
     [SerializeField] private Vector2 origin;
     private CancellationTokenSource canceler;
 
+    [Space(15f)]
+    [SerializeField] private Vector2 hitRange;
+
     private void Awake()
     {
         this.transform.position = Vector3.zero;
@@ -35,6 +39,7 @@ public class HellFire : MonoBehaviour
             return;
         }
 
+        canceler.Cancel();
         meteoInstance.SetActive(false);
 
         hitInstance.SetActive(true);
@@ -42,11 +47,29 @@ public class HellFire : MonoBehaviour
         var hitParticle = hitInstance.GetComponent<ParticleSystem>();
         hitParticle.Play();
 
+        var hit = Physics2D.BoxCast(origin, hitRange, 0f, Vector2.zero, 0f, LayerMask.GetMask(LayerDefine.ARCHER));
+        if (hit.collider != null)
+        {
+            var hitArcher = hit.collider.gameObject.GetComponentInParent<Archer>();
+            if (hitArcher != null)
+            {
+                onHitEvent?.Invoke(hitArcher);
+            }
+        }
+
         WaitForParticleEnd(hitParticle, () => onExitEvent?.Invoke());
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawCube(origin, hitRange);
     }
 
     public void Initialize(Vector2 newOrigin)
     {
+        onExitEvent = null;
+        onHitEvent = null;
+
         origin = newOrigin;
 
         indicateInstance.transform.position = origin + indicateOffset;
@@ -58,10 +81,12 @@ public class HellFire : MonoBehaviour
         hitInstance.transform.position = origin + hitOffset;
         hitInstance.SetActive(false);
 
-        if (canceler == null)
+        if (canceler != null)
         {
-            canceler = new CancellationTokenSource();
+            canceler.Cancel();
         }
+
+        canceler = new CancellationTokenSource();
 
         Flow(canceler.Token);
     }
