@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : SingleTon<GameManager>
 {
-    public GameSceneControl GaeSceneControl { get; private set; }
+    public GameSceneControl GameSceneControl { get; private set; }
 
     private void Start()
     {
@@ -21,7 +21,7 @@ public class GameManager : SingleTon<GameManager>
 
     private void OnSceneLoaded()
     {
-        GaeSceneControl = GameObject.FindGameObjectWithTag("SceneControl").GetComponent<GameSceneControl>(); // 씬 컨트롤 캐싱
-        GaeSceneControl.Initialize(Time.time + 60f);
+        GameSceneControl = GameObject.FindGameObjectWithTag("SceneControl").GetComponent<GameSceneControl>(); // 씬 컨트롤 캐싱
+        GameSceneControl.Initialize(Time.time + 60f);
     }
 }
