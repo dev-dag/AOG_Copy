@@ -57,7 +57,7 @@ public class Archer : MonoBehaviour
         currentHP_Observer = newHP_Observer;
         maxHP = newHP_Observer.Value;
         speed = newSpeed;
-        currentHP_Observer.Value = 1000000000;
+
 
         doBehavior = true;
     }
@@ -85,8 +85,6 @@ public class Archer : MonoBehaviour
     /// </summary>
     public void OnShoot()
     {
-        return;
-
         var globalPool = GameManager.Instance.GameSceneControl.GlobalPool;
 
         if (globalPool.GetPool("Default Arrow") == null)
@@ -136,42 +134,6 @@ public class Archer : MonoBehaviour
     {
         state = AnimationEnum.Attack;
         animator.Play(AnimationHash.ATTACK);
-    }
-
-    [Button("Shot")]
-    public void DoAttackTest()
-    {
-        var globalPool = GameSceneControl.Instance.GlobalPool;
-
-        if (globalPool.GetPool("Default Arrow") == null)
-        {
-            Func<object> create = () =>
-            {
-                var newArrow = GameObject.Instantiate(arrow, globalPool.transform).GetComponent<Arrow>();
-                newArrow.Initialize(globalPool.GetPool("Default Arrow"));
-
-                return newArrow;
-            };
-
-            Action<object> get = (instance) =>
-            {
-                var arrowInstnace = (Arrow)instance;
-                arrowInstnace.gameObject.SetActive(true);
-            };
-
-            Action<object> release = (instance) =>
-            {
-                var arrowInstnace = (Arrow)instance;
-                arrowInstnace.gameObject.SetActive(false);
-            };
-
-            globalPool.RegistPool<Arrow>("Default Arrow", create, get, release);
-        }
-
-        var arrowPool = globalPool.GetPool("Default Arrow");
-        Arrow newArrow = (Arrow)arrowPool.Get();
-
-        newArrow.Shoot(this, 100, handpoint, target.transform, newMaxY: 10f, newSpeed: 50f, arrowRotOffsetZ: 45f);
     }
 
     public void DoHurt()
